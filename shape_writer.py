@@ -26,12 +26,8 @@ def d_square(x,y):
 for x in range(_w):
     for y in range(_h):
         square = False
-        if y % 2 == 0:
-            if x % 2 == 0:
-                square = True
-        if y % 2 == 1:
-            if x % 2 == 1:
-                square = True
+        if (y % 2 == x % 2 == 0) or (y % 2 == x % 2 == 1):
+            square = True
                 
         if square:
             d_square(x,y)
