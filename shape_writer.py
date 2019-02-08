@@ -1,17 +1,8 @@
-i_m = 81 # inter module
-
-shape_size = 584
-
-p_shape = 584/1832 # proportion of shape in each module
-p_i = 80/1832 # x proportion of intercolumn in each module        
-
-circles = ['a','c','e']
-squares = ['b','d','f']
-
-big_block = (i_m + 1753, i_m + 1753 + i_m)
-small_block = (i_m + 1753, i_m + shape_size + i_m)
+i_m = 0.1 # inter module
 
 size('A3')
+
+p_shape = 0.5
 
 _w = 10
 _h = 14
@@ -21,13 +12,13 @@ h = height()/_h
 def d_circle(x,y):
     fill(0)
     actual_width = w * p_shape
-    inter_column = w * p_i
+    inter_column = w * i_m
     oval(x * w + inter_column, y * h + inter_column, actual_width, actual_width)
     
 def d_square(x,y):
     fill(194/255, 181/255, 155/255)
     actual_width = w * p_shape
-    inter_column = w * p_i
+    inter_column = w * i_m
     rect(x * w + inter_column, y * h + inter_column, actual_width, actual_width)
 
 
