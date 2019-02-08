@@ -1,10 +1,13 @@
 i_m = 0.1 # inter module
 
-p_h = p_d = 0.9
+p_h = 0.8
+p_d = 0.9
+
+alpha = 1
 
 size('A3')
 
-p_shape = 0.4
+p_shape = 0.35
 
 _w = 10
 _h = 14
@@ -12,16 +15,10 @@ w = width()/_w
 h = height()/_h
 
 def d_circle(x,y):
-    fill(0)
-    actual_width = w * p_shape
-    inter_column = w * i_m
-    oval(x * w + inter_column, y * h + inter_column, actual_width, actual_width)
+    oval(0, 0, actual_width, actual_width)
     
 def d_square(x,y):
-    fill(0)
-    actual_width = w * p_shape
-    inter_column = w * i_m
-    rect(x * w + inter_column, y * h + inter_column, actual_width, actual_width)
+    rect(0, 0, actual_width, actual_width)
 
 
 path_h = u'orange-horizontal.pdf'
@@ -43,26 +40,45 @@ for x in range(_w):
         if (y % 2 == x % 2 == 0) or (y % 2 == x % 2 == 1):
             square = True
 
-        # horizontal connections
-        if x < _w - 1 and random() > p_h:
-            with savedState():
-                scale(x=scaling_x_h, y=scaling_y_h)
-                s_x = (x * w + i_m * w + w * p_shape/2) / scaling_x_h
-                s_y = (y * h + i_m * w) / scaling_y_h
-                image(path_h, (s_x, s_y))
-
-        #vertical connections
-        if x < _w - 1 and y < _h - 1 and random() > p_d:
-            with savedState():
-                scale(x=scaling_x_d, y=scaling_y_d)
-                s_x = (x * w + i_m * w + w * p_shape/4) / scaling_x_d
-                s_y = (y * h + i_m * w + h * p_shape/4) / scaling_y_d
-                image(path_d, (s_x, s_y))
+        with savedState():
             
-                                        
-        if square:
-            d_square(x,y)
-        else:
-            d_circle(x,y)
+            actual_width = w * p_shape
+            inter_column = w * i_m
+            translate(x * w + inter_column, y * h + inter_column)
+
+            # horizontal & vertical connections
+            if x < _w - 1 and random() > p_h:
+                with savedState():
+                    r = random()
+                    print(r)
+                    # horizontal
+                    if r > 0.5:
+                        scale(x=scaling_x_h, y=scaling_y_h)
+                        offset_x = (w * p_shape/2) / scaling_x_h
+                        translate(offset_x, 0)
+                    else: #vertical
+                        scale(x=scaling_y_h, y=scaling_x_h)
+                        rotate(90)
+                        offset_x = (w * p_shape / 2) / scaling_x_h
+                        offset_y = -(h * p_shape) / scaling_y_h
+                        translate(offset_x, offset_y)
+                        
+                    image(path_h, (0, 0))
+
+
+            #vertical connections
+            if x < _w - 1 and y < _h - 1 and random() > p_d:
+                with savedState():
+                    scale(x=scaling_x_d, y=scaling_y_d)
+                    offset_x = (w * p_shape/4) / scaling_x_d
+                    offset_y = (h * p_shape/4) / scaling_y_d
+                    translate(offset_x, offset_y)
+                    image(path_d, (0, 0))
+               
+            fill(0, alpha)            
+            if square:
+                d_square(x,y)
+            else:
+                d_circle(x,y)
             
             
