@@ -1,11 +1,18 @@
 i_m = 0.1 # inter module
 
-p_h = 0.8
-p_d = 0.9
 
+diag_c = (57/255, 67/255, 231/255)
+ort_c = diag_c
+
+shape_color = 255
 alpha = 1
 
+p_h = 0.95
+p_d = 0.9
+
 size('A3')
+fill(0)
+rect(0,0, width(), height())
 
 p_shape = 0.35
 
@@ -20,6 +27,13 @@ def d_circle(x,y):
 def d_square(x,y):
     rect(0, 0, actual_width, actual_width)
 
+def create_color_map(color):
+    gm = ImageObject()
+    with gm:
+        size(1,1)
+        fill(color[0],color[1],color[2])
+        rect(0,0, 1,1)
+    return gm
 
 path_h = u'orange-horizontal.pdf'
 path_d = u'purple-diagonal.pdf'
@@ -47,10 +61,12 @@ for x in range(_w):
             translate(x * w + inter_column, y * h + inter_column)
 
             # horizontal & vertical connections
-            if x < _w - 1 and random() > p_h:
+            if x < _w - 1 and y < _h - 1 and random() > p_h:
                 with savedState():
+                    
+                    gm = create_color_map(ort_c)
+                    
                     r = random()
-                    print(r)
                     # horizontal
                     if r > 0.5:
                         scale(x=scaling_x_h, y=scaling_y_h)
@@ -63,19 +79,27 @@ for x in range(_w):
                         offset_y = -(h * p_shape) / scaling_y_h
                         translate(offset_x, offset_y)
                         
-                    image(path_h, (0, 0))
+                    im = ImageObject(path_h)
+                    im.colorMap(gm)
+                    image(im, (0, 0))
 
 
             #vertical connections
             if x < _w - 1 and y < _h - 1 and random() > p_d:
                 with savedState():
+                    
+                    gm = create_color_map(diag_c)
+                    
                     scale(x=scaling_x_d, y=scaling_y_d)
                     offset_x = (w * p_shape/4) / scaling_x_d
                     offset_y = (h * p_shape/4) / scaling_y_d
                     translate(offset_x, offset_y)
-                    image(path_d, (0, 0))
+                    im = ImageObject(path_d)
+                    im.colorMap(gm)
+                    image(im, (0, 0))
+
                
-            fill(0, alpha)            
+            fill(shape_color, alpha)            
             if square:
                 d_square(x,y)
             else:
