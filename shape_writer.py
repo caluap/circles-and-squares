@@ -48,16 +48,16 @@ diag = sqrt((w * (1 - i_m))**2 + (h * (1 - i_m))**2)
 scaling_x_d = diag/img_w
 scaling_y_d = scaling_x_d
 
+actual_width = w * p_shape
+inter_column = w * i_m
+
+
+# draws connections...
 for x in range(_w):
     for y in range(_h):
-        square = False
-        if (y % 2 == x % 2 == 0) or (y % 2 == x % 2 == 1):
-            square = True
-
+        
         with savedState():
-            
-            actual_width = w * p_shape
-            inter_column = w * i_m
+
             translate(x * w + inter_column, y * h + inter_column)
 
             # horizontal & vertical connections
@@ -84,13 +84,19 @@ for x in range(_w):
                     image(im, (0, 0))
 
 
-            #vertical connections
+            #diagonal connections
             if x < _w - 1 and y < _h - 1 and random() > p_d:
+            # if x == 2 and y == 2:
                 with savedState():
                     
                     gm = create_color_map(diag_c)
                     
-                    scale(x=scaling_x_d, y=scaling_y_d)
+                    if x > 0 and y > 0 and random() > 0.5:
+                        scale(x=-scaling_x_d, y=scaling_y_d)
+                        translate(-w*p_shape / scaling_x_d, 0)
+                    else:
+                        scale(x=scaling_x_d, y=scaling_y_d)
+                        
                     offset_x = (w * p_shape/4) / scaling_x_d
                     offset_y = (h * p_shape/4) / scaling_y_d
                     translate(offset_x, offset_y)
@@ -98,8 +104,20 @@ for x in range(_w):
                     im.colorMap(gm)
                     image(im, (0, 0))
 
-               
-            fill(shape_color, alpha)            
+
+
+# overlays connections with shapes
+fill(shape_color, alpha) 
+
+for x in range(_w):
+    for y in range(_h):
+        square = False
+        if (y % 2 == x % 2 == 0) or (y % 2 == x % 2 == 1):
+            square = True 
+                   
+        with savedState():
+            
+            translate(x * w + inter_column, y * h + inter_column)
             if square:
                 d_square(x,y)
             else:
