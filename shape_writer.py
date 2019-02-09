@@ -1,5 +1,6 @@
-i_m = 0.1 # inter module
+from random import choice
 
+i_m = 0.1 # inter module
 
 diag_c = (57/255, 67/255, 231/255)
 ort_c = diag_c
@@ -35,19 +36,8 @@ def create_color_map(color):
         rect(0,0, 1,1)
     return gm
 
-path_h = u'orange-horizontal.pdf'
-path_d = u'purple-diagonal.pdf'
 
-img_w, img_h = imageSize(path_h)
-
-scaling_x_h = w/img_w
-scaling_y_h = w*p_shape / img_h
-
-img_w, img_h = imageSize(path_d)
 diag = sqrt((w * (1 - i_m))**2 + (h * (1 - i_m))**2)
-scaling_x_d = diag/img_w
-scaling_y_d = scaling_x_d
-
 actual_width = w * p_shape
 inter_column = w * i_m
 
@@ -64,6 +54,13 @@ for x in range(_w):
             if x < _w - 1 and y < _h - 1 and random() > p_h:
                 with savedState():
                     
+                    # chooses image
+                    path_h = choice(['orange-horizontal.pdf'])
+                    img_w, img_h = imageSize(path_h)
+                    
+                    scaling_x_h = w/img_w
+                    scaling_y_h = w*p_shape / img_h
+
                     gm = create_color_map(ort_c)
                     
                     r = random()
@@ -88,6 +85,18 @@ for x in range(_w):
             if x < _w - 1 and y < _h - 1 and random() > p_d:
             # if x == 2 and y == 2:
                 with savedState():
+
+                    # chooses image                                        
+                    path_d = choice([
+                        'diag_1.pdf',
+                        'diag_2.pdf',
+                        'diag_3.pdf',
+                        'diag_4.pdf',
+                        'diag_5.pdf'])
+                        
+                    img_w, img_h = imageSize(path_d)
+                    scaling_x_d = diag/img_w
+                    scaling_y_d = scaling_x_d
                     
                     gm = create_color_map(diag_c)
                     
