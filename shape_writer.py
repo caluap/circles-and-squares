@@ -8,8 +8,8 @@ ort_c = diag_c
 shape_color = 255
 alpha = 1
 
-p_h = 0.95
-p_d = 0.9
+p_h = 0.75
+p_d = 0.75
 
 size('A3')
 fill(0)
@@ -55,7 +55,17 @@ for x in range(_w):
                 with savedState():
                     
                     # chooses image
-                    path_h = choice(['orange-horizontal.pdf'])
+                    path_h = 'connections/' + choice([
+                        'ort_0.pdf',
+                        'ort_1.pdf',
+                        'ort_2.pdf',
+                        'ort_3.pdf',
+                        'ort_4.pdf',
+                        'ort_5.pdf',
+                        'ort_6.pdf',
+                        'ort_7.pdf',
+                        'ort_8.pdf',
+                        'ort_9.pdf'])
                     img_w, img_h = imageSize(path_h)
                     
                     scaling_x_h = w/img_w
@@ -87,7 +97,7 @@ for x in range(_w):
                 with savedState():
 
                     # chooses image                                        
-                    path_d = choice([
+                    path_d = 'connections/' + choice([
                         'diag_1.pdf',
                         'diag_2.pdf',
                         'diag_3.pdf',
