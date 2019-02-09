@@ -1,6 +1,6 @@
 from random import choice
 
-i_m = 0.1 # inter module
+i_m = 0.2 # inter module
 
 diag_c = (57/255, 67/255, 231/255)
 ort_c = diag_c
@@ -15,7 +15,7 @@ size('A3')
 fill(0)
 rect(0,0, width(), height())
 
-p_shape = 0.35
+p_shape = 0.30
 
 _w = 10
 _h = 14
