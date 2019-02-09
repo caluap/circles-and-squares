@@ -22,6 +22,11 @@ _h = 14
 w = width()/_w
 h = height()/_h
 
+# centers shapes
+shift_x = (w * (1 - p_shape)) / 2 - w * i_m
+shift_y = (h * (1 - p_shape)) / 2 - h * i_m
+translate(shift_x, shift_y)
+
 def d_circle(x,y):
     oval(0, 0, actual_width, actual_width)
     
