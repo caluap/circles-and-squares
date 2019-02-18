@@ -2,20 +2,22 @@ from random import choice
 
 i_m = 0.2 # inter module
 
-diag_c = (57/255, 67/255, 231/255)
+diag_c = (74/255, 95/255, 255/255)
+diag_c = (255/255, 92/255, 0/255)
 ort_c = diag_c
 
-shape_color = 255
+shape_color = (0, 0.19, 1, 0)
 alpha = 1
 
-p_h = 0.75
-p_d = 0.75
+p_h = 1 - 0.4
+p_d = 1 - 0.2
 
 size('A3')
-fill(0)
+# fill(49/244, 0/255, 49/255)
+cmykFill(0,0,0,1)
 rect(0,0, width(), height())
 
-p_shape = 0.30
+p_shape = 0.37
 
 _w = 10
 _h = 14
@@ -131,7 +133,7 @@ for x in range(_w):
 
 
 # overlays connections with shapes
-fill(shape_color, alpha) 
+cmykFill(*shape_color, alpha) 
 
 for x in range(_w):
     for y in range(_h):
