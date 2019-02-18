@@ -12,17 +12,19 @@ alpha = 1
 p_h = 1 - 0.4
 p_d = 1 - 0.2
 
-size('A3')
-# fill(49/244, 0/255, 49/255)
+# size('A3')
+size(800, 200)
+
+_w = 16 # n columns
+_h = int(height()/width() * _w)
+w = width()/_w
+h = height()/_h
+
 cmykFill(0,0,0,1)
 rect(0,0, width(), height())
 
 p_shape = 0.37
 
-_w = 10
-_h = 14
-w = width()/_w
-h = height()/_h
 
 # centers shapes
 shift_x = (w * (1 - p_shape)) / 2 - w * i_m
