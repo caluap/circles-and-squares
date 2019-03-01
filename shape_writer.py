@@ -13,9 +13,13 @@ p_h = 1 - 0.4
 p_d = 1 - 0.2
 
 # size('A3')
-size(800, 200)
 
-_w = 16 # n columns
+# size(1280, 320)
+# _w = 24 # n columns
+
+size(480, 270)
+_w = 13 # n columns
+
 _h = int(height()/width() * _w)
 w = width()/_w
 h = height()/_h
