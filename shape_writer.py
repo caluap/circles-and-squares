@@ -2,12 +2,16 @@ from random import choice
 
 i_m = 0.2 # inter module
 
-diag_c = (74/255, 95/255, 255/255)
-diag_c = (255/255, 92/255, 0/255)
-ort_c = diag_c
+# yellow
+color1_cmyk = (0, 0.19, 1, 0)
+color1_rgb = (247/255, 199/255, 31/255)
 
+# orange
+color2_cmyk = (0, 0.68, 1, 0)
+color2_rgb = (255/255, 92/255, 0/255)
+
+cmyk_mode = False
 img_mode = 'png'
-shape_color = (0, 0.19, 1, 0)
 alpha = 1
 
 p_h = 1 - 0.4
@@ -25,7 +29,11 @@ _h = int(height()/width() * _w)
 w = width()/_w
 h = height()/_h
 
-cmykFill(0,0,0,1)
+if cmyk_mode:
+    cmykFill(0,0,0,1)
+else:
+    fill(0,0,0)
+    
 rect(0,0, width(), height())
 
 p_shape = 0.37
@@ -46,7 +54,10 @@ def create_color_map(color):
     gm = ImageObject()
     with gm:
         size(1,1)
-        fill(color[0],color[1],color[2])
+        if cmyk_mode:
+            cmykFill(*color)
+        else:
+            fill(*color)
         rect(0,0, 1,1)
     return gm
 
@@ -85,7 +96,10 @@ for x in range(_w):
                     scaling_x_h = w/img_w
                     scaling_y_h = w*p_shape / img_h
 
-                    gm = create_color_map(ort_c)
+                    if cmyk_mode:
+                        gm = create_color_map(color2_cmyk)
+                    else:
+                        gm = create_color_map(color2_rgb)
                     
                     r = random()
                     # horizontal
@@ -122,7 +136,10 @@ for x in range(_w):
                     scaling_x_d = diag/img_w
                     scaling_y_d = scaling_x_d
                     
-                    gm = create_color_map(diag_c)
+                    if cmyk_mode:
+                        gm = create_color_map(color2_cmyk)
+                    else:
+                        gm = create_color_map(color2_rgb)
                     
                     if x > 0 and y > 0 and random() > 0.5:
                         scale(x=-scaling_x_d, y=scaling_y_d)
@@ -140,7 +157,10 @@ for x in range(_w):
 
 
 # overlays connections with shapes
-cmykFill(*shape_color, alpha) 
+if cmyk_mode:
+    cmykFill(*color1_cmyk, alpha) 
+else:
+    fill(*color1_rgb, alpha)
 
 for x in range(_w):
     for y in range(_h):
