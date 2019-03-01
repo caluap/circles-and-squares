@@ -6,6 +6,7 @@ diag_c = (74/255, 95/255, 255/255)
 diag_c = (255/255, 92/255, 0/255)
 ort_c = diag_c
 
+img_mode = 'png'
 shape_color = (0, 0.19, 1, 0)
 alpha = 1
 
@@ -18,7 +19,7 @@ p_d = 1 - 0.2
 # _w = 24 # n columns
 
 size(480, 270)
-_w = 13 # n columns
+_w = 9 # n columns
 
 _h = int(height()/width() * _w)
 w = width()/_w
@@ -68,17 +69,17 @@ for x in range(_w):
                 with savedState():
                     
                     # chooses image
-                    path_h = 'connections/' + choice([
-                        'ort_0.pdf',
-                        'ort_1.pdf',
-                        'ort_2.pdf',
-                        'ort_3.pdf',
-                        'ort_4.pdf',
-                        'ort_5.pdf',
-                        'ort_6.pdf',
-                        'ort_7.pdf',
-                        'ort_8.pdf',
-                        'ort_9.pdf'])
+                    path_h = 'connections/' + img_mode + '/' + choice([
+                        'ort_0',
+                        'ort_1',
+                        'ort_2',
+                        'ort_3',
+                        'ort_4',
+                        'ort_5',
+                        'ort_6',
+                        'ort_7',
+                        'ort_8',
+                        'ort_9']) + '.' + img_mode
                     img_w, img_h = imageSize(path_h)
                     
                     scaling_x_h = w/img_w
@@ -110,12 +111,12 @@ for x in range(_w):
                 with savedState():
 
                     # chooses image                                        
-                    path_d = 'connections/' + choice([
-                        'diag_1.pdf',
-                        'diag_2.pdf',
-                        'diag_3.pdf',
-                        'diag_4.pdf',
-                        'diag_5.pdf'])
+                    path_d = 'connections/' + img_mode + '/' + choice([
+                        'diag_1',
+                        'diag_2',
+                        'diag_3',
+                        'diag_4',
+                        'diag_5']) + '.' + img_mode
                         
                     img_w, img_h = imageSize(path_d)
                     scaling_x_d = diag/img_w
