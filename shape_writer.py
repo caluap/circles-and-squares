@@ -2,13 +2,36 @@ from random import choice
 
 i_m = 0.2 # inter module
 
-# yellow
-color1_cmyk = (0, 0.19, 1, 0)
-color1_rgb = (247/255, 199/255, 31/255)
+colors = {
+    "yellow": {
+            "rgb": (247/255, 199/255, 31/255),
+            "cmyk": (247/255, 199/255, 31/255)
+        },
+    "orange": {
+            "rgb": (255/255, 92/255, 0/255),
+            "cmyk": (0, 0.68, 1, 0)
+        },
+    "white": {
+            "rgb": (255/255, 255/255, 255/255),
+            "cmyk": (0, 0, 0, 0)
+        },
+    "black": {
+            "rgb": (0/255, 0/255, 0/255),
+            "cmyk": (0, 0, 0, 1)
+        }
+    }
+    
+bg_color = colors["yellow"]
+c1 = colors["white"]
+c2 = colors["black"]
 
-# orange
-color2_cmyk = (0, 0.68, 1, 0)
-color2_rgb = (255/255, 92/255, 0/255)
+# yellow (shapes)
+color1_cmyk = c1["cmyk"]
+color1_rgb = c1["rgb"]
+
+# orange (connections)
+color2_cmyk = c2["cmyk"]
+color2_rgb = c2["rgb"]
 
 cmyk_mode = False
 img_mode = 'png'
@@ -22,17 +45,17 @@ p_d = 1 - 0.2
 # size(1280, 320)
 # _w = 24 # n columns
 
-size(480, 270)
-_w = 9 # n columns
+size(750, 870)
+_w = 7 # n columns
 
 _h = int(height()/width() * _w)
 w = width()/_w
 h = height()/_h
 
 if cmyk_mode:
-    cmykFill(0,0,0,1)
+    cmykFill(*bg_color["cmyk"])
 else:
-    fill(0,0,0)
+    fill(*bg_color["rgb"])
     
 rect(0,0, width(), height())
 
