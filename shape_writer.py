@@ -52,12 +52,12 @@ _h = int(height()/width() * _w)
 w = width()/_w
 h = height()/_h
 
-if cmyk_mode:
-    cmykFill(*bg_color["cmyk"])
-else:
-    fill(*bg_color["rgb"])
-    
-rect(0,0, width(), height())
+if bg_color != None:
+    if cmyk_mode:
+        cmykFill(*bg_color["cmyk"])
+    else:
+        fill(*bg_color["rgb"])
+    rect(0,0, width(), height())
 
 p_shape = 0.37
 
